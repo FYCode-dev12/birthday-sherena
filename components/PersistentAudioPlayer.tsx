@@ -11,7 +11,7 @@ export default function PersistentAudioPlayer() {
     // Inisialisasi audio element
     if (!audioRef.current) {
       audioRef.current = new Audio();
-      audioRef.current.src = "/about-you.mp3";
+      audioRef.current.src = "https://res.cloudinary.com/dxkpluqoo/video/upload/v1767722195/The_1975_-_About_You_Official_cpwzsz.mp3";
       audioRef.current.loop = true;
       audioRef.current.volume = 0.5;
 
