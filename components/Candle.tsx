@@ -4,6 +4,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 
 interface CandleProps {
   isLit: boolean;
@@ -11,10 +12,16 @@ interface CandleProps {
 }
 
 export default function Candle({ isLit, onHover }: CandleProps) {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   return (
     <div className="relative inline-block" onMouseEnter={onHover}>
       {/* Flame (Api) */}
-      {isLit && (
+      {isLit && isMounted && (
         <motion.div
           initial={{ scale: 0, opacity: 0 }}
           animate={{

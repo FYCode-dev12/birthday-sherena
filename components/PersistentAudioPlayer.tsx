@@ -5,13 +5,19 @@ import { useEffect, useRef, useState } from "react";
 export default function PersistentAudioPlayer() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("audioMuted") === "true";
+    }
+    return false;
+  });
 
   useEffect(() => {
     // Inisialisasi audio element
     if (!audioRef.current) {
       audioRef.current = new Audio();
-      audioRef.current.src = "https://res.cloudinary.com/dxkpluqoo/video/upload/v1767722195/The_1975_-_About_You_Official_cpwzsz.mp3";
+      audioRef.current.src =
+        "https://res.cloudinary.com/dxkpluqoo/video/upload/v1767722195/The_1975_-_About_You_Official_cpwzsz.mp3";
       audioRef.current.loop = true;
       audioRef.current.volume = 0.5;
 
@@ -38,7 +44,6 @@ export default function PersistentAudioPlayer() {
 
     if (savedMuted === "true") {
       audio.muted = true;
-      setIsMuted(true);
     }
 
     // Auto play dengan berbagai fallback
@@ -159,7 +164,7 @@ export default function PersistentAudioPlayer() {
         onClick={togglePlay}
         className={`group relative flex items-center gap-3 px-5 py-4 rounded-2xl shadow-2xl backdrop-blur-md border-2 transition-all duration-300 ${
           isPlaying
-            ? "bg-gradient-to-r from-pink-500/30 to-purple-500/30 border-pink-400/50 hover:from-pink-500/40 hover:to-purple-500/40"
+            ? "bg-linear-to-r from-pink-500/30 to-purple-500/30 border-pink-400/50 hover:from-pink-500/40 hover:to-purple-500/40"
             : "bg-white/10 border-white/30 hover:bg-white/20"
         }`}
         title={isPlaying ? "Pause Music" : "Play Music"}
@@ -211,8 +216,8 @@ export default function PersistentAudioPlayer() {
         onClick={toggleMute}
         className={`group relative flex items-center gap-3 px-5 py-4 rounded-2xl shadow-2xl backdrop-blur-md border-2 transition-all duration-300 ${
           isMuted
-            ? "bg-gradient-to-r from-red-500/30 to-orange-500/30 border-red-400/50 hover:from-red-500/40 hover:to-orange-500/40"
-            : "bg-gradient-to-r from-green-500/30 to-emerald-500/30 border-green-400/50 hover:from-green-500/40 hover:to-emerald-500/40"
+            ? "bg-linear-to-r from-red-500/30 to-orange-500/30 border-red-400/50 hover:from-red-500/40 hover:to-orange-500/40"
+            : "bg-linear-to-r from-green-500/30 to-emerald-500/30 border-green-400/50 hover:from-green-500/40 hover:to-emerald-500/40"
         }`}
         title={isMuted ? "Unmute" : "Mute"}
       >

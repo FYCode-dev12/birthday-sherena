@@ -58,8 +58,8 @@ export default function CakePage() {
         setTimeout(() => {
           createConfetti();
           setTimeout(() => {
-            router.push("/finale");
-          }, 2000); // DELAY SEBELUM KE FINALE - ganti angka
+            router.push("/gemini");
+          }, 2000); // DELAY SEBELUM KE GEMINI - ganti angka
         }, 500);
       }
     }
